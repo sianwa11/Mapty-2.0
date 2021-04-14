@@ -34,7 +34,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <script defer src="src/js/controller.js"></script>
+    <script defer type="module" src="src/js/controller.js"></script>
     <title>Mapty 2.0</title>
   </head>
   <body>
@@ -45,22 +45,16 @@
       <ul class="workouts">
         <form class="form hidden">
           <div class="form-group">
-            <!-- <label>Type: </label>
-            <select class="form__input form__input--type">
-              <option value="running">Running</option>
-              <option value="cycling">Cycling</option>
-            </select> -->
-          </div>
-
-          <div class="form-group">
             <label>Distance: </label>
-            <input class="" placeholder="km" />
+            <input class="form__input--distance" placeholder="km" />
           </div>
 
           <div class="form-group">
             <label>Duration: </label>
-            <input class="" placeholder="min" />
+            <input class="form__input--duration" placeholder="min" />
           </div>
+
+          <button class="form__btn">OK</button>
         </form>
 
         <!-- <li class="workout workout--running" data-id="1234567890">
@@ -92,3 +86,11 @@
     <div id="map"></div>
   </body>
 </html>
+
+<!-- <div class="form-group">
+  <label>Type: </label>
+  <select class="form__input form__input--type">
+    <option value="running">Running</option>
+    <option value="cycling">Cycling</option>
+  </select> 
+</div>-->

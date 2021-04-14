@@ -1,32 +1,26 @@
 // Imports here
+import { WORKOUTS_ARRAY } from "./config.js";
 
-/**
- *
- */
-const loadMap = function () {
-  // If navigator exists render map
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const { latitude } = pos.coords;
-      const { longitude } = pos.coords;
-      console.log(pos);
+import mapView from "./Models/Map.js";
+import workoutView from "./Views/workoutsView.js";
 
-      const coords = [latitude, longitude];
+import workoutsView from "./Views/workoutsView.js";
 
-      const mymap = L.map("map").setView(coords, 13);
+const addData = function (data) {
+  console.log(data);
 
-      L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(mymap);
-    });
-  }
+  // add data onto some state
+  WORKOUTS_ARRAY.push(data);
 
-  // Render error Message if it fails
+  // render popup on map
+  mapView.renderMarker(data);
+
+  // show workout
+  workoutView.showWorkout(data);
 };
 
 const init = function () {
-  loadMap();
+  workoutsView.getData(addData);
 };
 
 // Initialization of the application

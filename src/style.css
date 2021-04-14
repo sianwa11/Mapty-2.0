@@ -65,6 +65,9 @@ body {
   display: grid;
 }
 
-/* .form.hidden {
+.form.hidden {
   opacity: 0;
-} */
+}
+.form__btn {
+  display: none;
+}
