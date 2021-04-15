@@ -19,8 +19,14 @@ const addData = function (data) {
   workoutView.showWorkout(data);
 };
 
+const handleMoveTo = function (target) {
+  // Move to map
+  mapView.moveTo(target);
+};
+
 const init = function () {
   workoutsView.getData(addData);
+  workoutsView.workoutElClicked(handleMoveTo);
 };
 
 // Initialization of the application

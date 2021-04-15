@@ -1,3 +1,4 @@
+import { WORKOUTS_ARRAY } from "../config.js";
 import Workout from "./../Models/Workout.js";
 
 class WorkoutsView {
@@ -21,10 +22,18 @@ class WorkoutsView {
     this._form.addEventListener("submit", (e) => {
       e.preventDefault();
 
+      const distance = +this._distance.value;
+      const duration = +this._duration.value;
+
+      if (!isFinite(duration) && !isFinite(duration)) {
+        alert("Input numbers only");
+        return;
+      }
+
       const data = new Workout(
         [this.#latitude, this.#longitude],
-        this._distance.value,
-        this._duration.value
+        distance,
+        duration
       );
 
       handler(data);
@@ -33,8 +42,8 @@ class WorkoutsView {
 
   showWorkout(workout) {
     const markup = `
-    <li class="workout workout--running" data-id="1234567890">
-      <h1 class="workout__title">Running on April 14</h2>
+    <li class="workout workout--running" data-id="${workout.id}">
+      <h1 class="workout__title">${workout.description}</h2>
         <div class="workout__details">
           <span class="workout__icon">🏃‍♂️</span>
           <span class="workout__value">${workout.distance}</span>
@@ -45,15 +54,15 @@ class WorkoutsView {
           <span class="workout__value">${workout.duration}</span>
           <span class="workout__unit">min</span>
         </div>
-        <div class="workout__details">
+        <!-- <div class="workout__details">
           <span class="workout__icon">🦶🏼</span>
           <span class="workout__value">nill</span>
           <span class="workout__unit">Kcal</span>
-        </div>
+        </div> -->
         <div class="workout__details">
           <span class="workout__icon">⚡️</span>
-          <span class="workout__value">nill</span>
-          <span class="workout__unit">kph</span>
+          <span class="workout__value">${workout.speed.toFixed(1)}</span>
+          <span class="workout__unit">km/h</span
         </div>
     </li>
     `;
@@ -67,6 +76,20 @@ class WorkoutsView {
     this._form.classList.add("hidden");
     this._form.insertAdjacentHTML("afterend", markup);
     setTimeout(() => (this._form.style.display = "grid"), 1000);
+  }
+
+  workoutElClicked(handler) {
+    this._parentElement.addEventListener("click", (e) => {
+      const workoutEl = e.target.closest(".workout");
+
+      if (!workoutEl) return;
+
+      const workoutClicked = WORKOUTS_ARRAY.find(
+        (workout) => workout.id === workoutEl.dataset.id
+      );
+
+      handler(workoutClicked);
+    });
   }
 }
 

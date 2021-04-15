@@ -1,4 +1,6 @@
 import { ZOOM_LEVEL } from "./../config.js";
+import { WORKOUTS_ARRAY } from "./../config.js";
+
 import workoutsView from "./../Views/workoutsView.js";
 
 class Map {
@@ -41,7 +43,23 @@ class Map {
   }
 
   renderMarker(workout) {
-    L.marker(workout.coordinates).addTo(this.#map);
+    L.marker(workout.coordinates)
+      .addTo(this.#map)
+      .bindPopup({
+        maxWidth: 300,
+        minWidth: 50,
+        autoClose: false,
+        closeOnClick: false,
+        className: "popup",
+      })
+      .setPopupContent(`${workout.description}`)
+      .openPopup();
+    // .bindPopup();
+  }
+
+  moveTo(target) {
+    // Moves the map to the specified targets coordinates
+    this.#map.flyTo(target.coordinates, ZOOM_LEVEL);
   }
 }
 
