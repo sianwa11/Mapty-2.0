@@ -33,10 +33,15 @@ class Map {
     }).addTo(this.#map);
 
     this.#map.on("click", this._onHandlerMapClicked.bind(this));
+
+    // Render markers
+    WORKOUTS_ARRAY.forEach((workout) => {
+      this.renderMarker(workout);
+    });
   }
 
   _onHandlerMapClicked(mapE) {
-    console.log(mapE.latlng);
+    // console.log(mapE.latlng);
 
     const { lat, lng } = mapE.latlng;
     workoutsView.showForm(lat, lng);

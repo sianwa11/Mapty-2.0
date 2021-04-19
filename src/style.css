@@ -80,3 +80,17 @@ body {
 .popup {
   background-color: rgb(36, 74, 87);
 }
+
+.clear__btn {
+  background-color: rgba(218, 216, 216, 0.253);
+  border-radius: 5px;
+  margin-bottom: 1.75rem;
+  margin-right: 1.75rem;
+  cursor: pointer;
+
+  display: grid;
+}
+
+.clear__btn.hidden {
+  opacity: 0;
+}
